@@ -1,0 +1,36 @@
+{
+    "name": "enLussi/ostyna-core",
+    "description": "Lightweight PHP Framework",
+    "homepage": "https://github.com/enLussi/ostyna-core.git",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Lucas Martignon",
+            "email": "lucas.martignon@wanadoo.fr",
+            "role": "lead"
+        }
+    ],
+    "support": {
+    },
+    "config": {
+        "platform": {
+            "php": "8.1.0"
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        }
+    }
+}
