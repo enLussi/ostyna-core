@@ -1,6 +1,6 @@
 <?php
 
-namespace Ostyna;
+namespace Ostyna\Core;
 
 use Ostyna\Component\Error\FatalException;
 

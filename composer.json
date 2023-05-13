@@ -1,23 +1,16 @@
 {
-    "name": "enLussi/ostyna-core",
-    "description": "Lightweight PHP Framework",
-    "license": "BSD-3-Clause",
+    "name": "ostyna/core",
+    "description": "Lightweight PHP Framework Core",
+    "autoload": {
+        "psr-4": {
+            "Ostyna\\Core\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Lucas Martignon",
-            "email": "lucas.martignon@wanadoo.fr",
-            "role": "lead"
+            "email": "lucas.martignon@wanadoo.fr"
         }
     ],
-    "config": {
-        "optimize-autoloader": true,
-        "sort-packages": true
-    },
-    "require": {
-        "php": ">=8.1",
-	"enLussi/ostyna-core": "master"
-    },
-    "autoload": {
-        "psr-4": { "Ostyna\\": "framework/"}
-    }
+    "require": {}
 }
