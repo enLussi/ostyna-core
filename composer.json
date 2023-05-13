@@ -14,7 +14,8 @@
         "sort-packages": true
     },
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+	"enLussi/ostyna-core": "master"
     },
     "autoload": {
         "psr-4": { "Ostyna\\": "framework/"}
