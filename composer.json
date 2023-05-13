@@ -1,6 +1,5 @@
 {
     "name": "enLussi/ostyna-core",
-    "version": "0.0.1",
     "description": "Lightweight PHP Framework",
     "license": "BSD-3-Clause",
     "authors": [
@@ -19,13 +18,10 @@
         "optimize-autoloader": true,
         "sort-packages": true
     },
-    "prefer-stable": true,
     "require": {
         "php": ">=8.1"
     },
     "autoload": {
-        "classmap": [
-            "src/"
-        ]
+        "psr-4": { "Ostyna\\": "framework/}
     }
 }
