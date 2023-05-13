@@ -6,6 +6,12 @@
             "Ostyna\\Core\\": "src/"
         }
     },
+    "repositories": [
+        {
+            "url": "https://github.com/enLussi/ostyna-core",
+            "type": "git"
+        }
+    ],
     "authors": [
         {
             "name": "Lucas Martignon",
