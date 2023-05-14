@@ -30,8 +30,7 @@ class CoreUtils {
       throw new FatalException('Route not valid', 404);
     }
 
-    $class = explode('::', $route['method'])[0];
-    $method = explode('::', $route['method'])[1];
+    [$class, $method] = explode('::', $route['method']);
     (new $class())->$method();
   }
 
