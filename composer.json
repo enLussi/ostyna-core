@@ -5,7 +5,8 @@
         "psr-4": {
             "Ostyna\\Core\\": "",
             "Ostyna\\Component\\Error\\": "exceptions/",
-            "Ostyna\\Component\\Environment\\": "dotenv/"
+            "Ostyna\\Component\\Environment\\": "dotenv/",
+            "Ostyna\\Component\\Utils\\": "utils/"
         }
     },
     "require": {
