@@ -37,7 +37,13 @@ class BaseCore {
 
     try {
       if (RoutesUtils::route_exists($this->origin) !== false) {
-        $key = array_search($this->origin, array_column(RoutesUtils::get_routes(), 'path'));
+        $key = null;
+        foreach(RoutesUtils::get_routes() as $route_key => $route) {
+          if($route['path'] === $this->origin) {
+            $key = $route_key;
+            break;
+          }
+        }
 
         if($key !== false) {
           CoreUtils::redirect($key);

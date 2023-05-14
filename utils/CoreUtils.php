@@ -33,7 +33,7 @@ class CoreUtils {
     return self::$projectRoot;
   }
 
-  public static function redirect(string $key) {
+  public static function redirect(?string $key) {
 
     $route = RoutesUtils::route_exists(key_route: $key);
 
