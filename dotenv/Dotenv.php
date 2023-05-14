@@ -1,6 +1,6 @@
 <?php
 
-namespace Ostyna\Component;
+namespace Ostyna\Component\Environment;
 
 class Dotenv {
 

@@ -3,7 +3,9 @@
     "description": "Lightweight PHP Framework Core",
     "autoload": {
         "psr-4": {
-            "Ostyna\\Core\\": "core/"
+            "Ostyna\\Core\\": "",
+            "Ostyna\\Component\\Error\\": "exceptions",
+            "Ostyna\\Component\\Environment\\": "dotenv"
         }
     },
     "require": {}
