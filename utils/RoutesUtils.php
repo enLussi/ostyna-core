@@ -14,12 +14,7 @@ class RoutesUtils {
   // Contiendra toutes les routes défini dans config/routes.json
   // la variable statique routes est défini avec des valeurs de base
   // pour des redirections spécifique au framework
-  private static array $routes = [
-    "fatalerror" => [
-      "path" => "/fatal-error",
-      "method" => "Ostyna\\Component\\Controllers\\FatalErrorIssue::display"
-    ]
-  ];
+  private static array $routes;
 
 
   // Charge les routes prédéfini dans les fichier config/routes.json
@@ -32,7 +27,18 @@ class RoutesUtils {
     }
     
     if (!isset(self::$routes)) {
-      self::$routes = json_decode(file_get_contents(CoreUtils::getProjectRoot() . '/config/routes.json'), true);
+      self::$routes =  [   
+        "fatalerror" => [
+        "path" => "/fatal-error",
+        "method" => "Ostyna\\Component\\Controllers\\FatalErrorIssue::display"
+        ]
+      ];
+
+      $all_routes = json_decode(file_get_contents(CoreUtils::getProjectRoot() . '/config/routes.json'), true);
+
+      foreach($all_routes as $key => $route) {
+        self::$routes = [...self::$routes, $key => $route];
+      }
     }
     if (is_null(self::$routes)) {
       throw new FatalException('"routes" array is null.', 1);
