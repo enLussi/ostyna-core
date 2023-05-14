@@ -52,9 +52,9 @@ class RoutesUtils {
   // Renvoie la clé du tableau de route correspondant à l'url ou false si la route n'existe pas.
   public static function route_exists(string $origin = '', string $key_route = '') {
     foreach(self::$routes as $key => $route) {
-      if ( $origin !== '' && $route['path'] === $origin) return [$key, $route];
+      if ( $origin !== '' && $route['path'] === $origin) return $route;
     }
-    if(array_key_exists($key_route, self::$routes)) return [$key_route, self::$routes[$key_route]];
+    if(array_key_exists($key_route, self::$routes)) return self::$routes[$key_route];
   
     return false;
   }
