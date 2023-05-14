@@ -17,7 +17,7 @@ class RoutesUtils {
   private static array $routes = [
     "fatalerror" => [
       "path" => "/fatal-error",
-      "controller" => "Ostyna\\Component\\Controllers\\FatalErrorIssue"
+      "method" => "Ostyna\\Component\\Controllers\\FatalErrorIssue::display"
     ]
   ];
 
