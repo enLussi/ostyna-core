@@ -4,9 +4,11 @@
     "autoload": {
         "psr-4": {
             "Ostyna\\Core\\": "",
-            "Ostyna\\Component\\Error\\": "exceptions",
-            "Ostyna\\Component\\Environment\\": "dotenv"
+            "Ostyna\\Component\\Error\\": "exceptions/",
+            "Ostyna\\Component\\Environment\\": "dotenv/"
         }
     },
-    "require": {}
+    "require": {
+        "ostyna/core": "*"
+    }
 }
