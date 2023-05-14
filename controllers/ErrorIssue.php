@@ -2,7 +2,7 @@
 
 namespace Ostyna\Component\Controllers;
 
-use Ostyna\Component\Framework\AbstractPageControlller;
+use Ostyna\Component\Framework\AbstractPageController;
 
-abstract class ErrorIssue extends AbstractPageControlller {
+abstract class ErrorIssue extends AbstractPageController {
 }

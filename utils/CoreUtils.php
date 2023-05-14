@@ -8,9 +8,20 @@ use Ostyna\Component\Error\FatalException;
 class CoreUtils {
 
   private static string $projectRoot;
+  private static array $config;
   private static Exception $exception;
 
-  public static function getProjectRoot () {
+  public static function get_config() {
+    if(!isset(self::$config)) {
+      if(!file_exists(self::get_project_root() . '/config/config.json')) {
+        throw new Exception('File config/config.json missing.');
+      }
+      self::$config = json_decode(file_get_contents(self::get_project_root() . '/config/config.json'), true);
+    }
+    return self::$config;
+  }
+
+  public static function get_project_root () {
     if (!isset(self::$projectRoot)) {
       $dir = dirname(__DIR__);
 

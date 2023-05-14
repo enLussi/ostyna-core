@@ -22,7 +22,7 @@ class RoutesUtils {
   // Si le retour du fichier est null, une erreur est lancé.
   // Enfin la fonction renvoie si tout s'est bien passé un tableau de routes
   public static function load_routes(): ?array {
-    if(!file_exists(CoreUtils::getProjectRoot() . '/config/routes.json')) {
+    if(!file_exists(CoreUtils::get_project_root() . '/config/routes.json')) {
       throw new FatalException('Missing routes files in : /config', 404);
     }
     
@@ -34,7 +34,7 @@ class RoutesUtils {
         ]
       ];
 
-      $all_routes = json_decode(file_get_contents(CoreUtils::getProjectRoot() . '/config/routes.json'), true);
+      $all_routes = json_decode(file_get_contents(CoreUtils::get_project_root() . '/config/routes.json'), true);
 
       foreach($all_routes as $key => $route) {
         self::$routes = [...self::$routes, $key => $route];

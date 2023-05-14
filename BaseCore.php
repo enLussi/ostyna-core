@@ -4,7 +4,6 @@ namespace Ostyna\Core;
 
 use Exception;
 use Ostyna\Component\Environment\Dotenv;
-use Ostyna\Component\Error\FatalException;
 use Ostyna\Component\Utils\CoreUtils;
 use Ostyna\Component\Utils\RoutesUtils;
 
@@ -32,15 +31,18 @@ class BaseCore {
 
   public function load(){
 
-    (new Dotenv(CoreUtils::getProjectRoot() . '/.env'))->load();
+    (new Dotenv(CoreUtils::get_project_root() . '/.env'))->load();
 
     RoutesUtils::load_routes();
 
     try {
       if (RoutesUtils::route_exists($this->origin) !== false) {
-        echo "caca";
-        // $this->redirect($origine);
-    
+        $key = array_search($this->origin, array_column(RoutesUtils::get_routes(), 'path'));
+
+        if($key !== false) {
+          CoreUtils::redirect($key);
+        }
+        throw new Exception('Routes does not exists for some reason.');
       } else {
 
         // $this->notfound_redirect();

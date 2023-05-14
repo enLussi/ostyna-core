@@ -16,11 +16,11 @@ trait PageTrait {
   // Fonction a appeler dans display pour remplir la variable content.
   // La variable content contiendra le fichier html complet et sera envoyé à la vue.
   protected function render(string $pathView, $parameters = []){
-    if (!file_exists(CoreUtils::getProjectRoot() . '/templates/' . $pathView)) {
+    if (!file_exists(CoreUtils::get_project_root() . '/templates/' . $pathView)) {
       throw new FatalException('Template does not exists', 1);
     }
 
-    $this->content = file_get_contents(CoreUtils::getProjectRoot() . '/templates/' . $pathView);
+    $this->content = file_get_contents(CoreUtils::get_project_root() . '/templates/' . $pathView);
   }
 
   protected function flat_render(string $content){
