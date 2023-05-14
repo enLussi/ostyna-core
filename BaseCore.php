@@ -2,22 +2,19 @@
 
 namespace Ostyna\Core;
 
-use Ostyna\Component\Error\FatalException;
+use Ostyna\Component\Environment\Dotenv;
+use Ostyna\Component\Utils\CoreUtils;
+use Ostyna\Component\Utils\RoutesUtils;
 
 class BaseCore {
 
   private static BaseCore $instance;
-
-  private array $routes;
-
-  private string $projectRoot;
 
   private string $origin;
 
   private function __construct() {
 
     $this->origin = explode('?', $_SERVER['REQUEST_URI'])[0]; 
-    $this->projectRoot = $this->getProjectRoot();
 
   }
 
@@ -33,15 +30,15 @@ class BaseCore {
 
   public function load(){
 
-    if(!file_exists($this->projectRoot . '/config/routes.json')) {
-      throw new FatalException('Missing routes files in : /config', 404);
-    }
-    $this->routes = json_decode(file_get_contents($this->projectRoot . '/config/routes.json'), true);
+    // Chargé le fichier .env
+    (new Dotenv(CoreUtils::getProjectRoot() . '/.env'))->load();
+
+    RoutesUtils::load_routes();
 
     // Chargé la liste des évènements ici
 
-    if ($this->route_exists() !== false) {
-  
+    if (RoutesUtils::route_exists($this->origin) !== false) {
+      echo "caca";
       // $this->redirect($origine);
   
     } else {
@@ -52,25 +49,5 @@ class BaseCore {
 
   }
 
-  public function route_exists () {
-
-    foreach($this->routes as $key => $route) {
-      if ( $route['path'] === $this->origin) return $key;
-    }
-  
-    return false;
-  
-  }
-
-  public function getProjectRoot () {
-    if (!isset($this->projectRoot)) {
-      $dir = dirname(__DIR__);
-
-      while (!is_file($dir.'/composer.json')) {
-        $dir = dirname($dir);
-      }
-      $this->projectRoot = $dir;
-    }
-    return $this->projectRoot;
-  }
+ 
 }
