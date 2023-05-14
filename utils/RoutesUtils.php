@@ -11,7 +11,15 @@ use Ostyna\Component\Error\FatalException;
 // get_route => renvoie une entrée de tableau du tableau de routes
 class RoutesUtils {
 
-  private static array $routes;
+  // Contiendra toutes les routes défini dans config/routes.json
+  // la variable statique routes est défini avec des valeurs de base
+  // pour des redirections spécifique au framework
+  private static array $routes = [
+    "fatalerror" => [
+      "path" => "/fatal-error",
+      "controller" => "Ostyna\\Component\\Controllers\\FatalErrorIssue"
+    ]
+  ];
 
 
   // Charge les routes prédéfini dans les fichier config/routes.json

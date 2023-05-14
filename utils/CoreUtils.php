@@ -12,7 +12,7 @@ class CoreUtils {
     if (!isset(self::$projectRoot)) {
       $dir = dirname(__DIR__);
 
-      while (!is_file($dir.'/composer.json')) {
+      while (!is_file($dir.'/composer.lock')) {
         $dir = dirname($dir);
       }
       self::$projectRoot = $dir;
