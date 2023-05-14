@@ -6,7 +6,9 @@
             "Ostyna\\Core\\": "",
             "Ostyna\\Component\\Error\\": "exceptions/",
             "Ostyna\\Component\\Environment\\": "dotenv/",
-            "Ostyna\\Component\\Utils\\": "utils/"
+            "Ostyna\\Component\\Utils\\": "utils/",
+            "Ostyna\\Component\\Framework\\": "framework/",
+            "Ostyna\\Component\\Traits\\": "traits/"
         }
     },
     "require": {
