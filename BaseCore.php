@@ -14,9 +14,7 @@ class BaseCore {
   private string $origin;
 
   private function __construct() {
-
-    $this->origin = explode('?', $_SERVER['REQUEST_URI'])[0]; 
-
+    (new Dotenv(CoreUtils::get_project_root() . '/.env'))->load();
   }
 
   private function __clone(){}
@@ -29,10 +27,16 @@ class BaseCore {
     return self::$instance;
   }
 
+  public function console() {
+    foreach(CoreUtils::get_config()['dev']['preload'] as $preload) {
+      require_once CoreUtils::get_project_root() . '/vendor/' . $preload . '/preload.php';
+    }
+  }
+
   public function load(){
 
-    (new Dotenv(CoreUtils::get_project_root() . '/.env'))->load();
-
+    
+    $this->origin = explode('?', $_SERVER['REQUEST_URI'])[0]; 
     RoutesUtils::load_routes();
 
     try {
