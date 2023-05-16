@@ -32,6 +32,6 @@ class ConsoleUtils {
 
     [$class, $method] = explode('::', self::$commands[$key]['method']);
 
-    (new $class())->$method(option: $option);
+    (new $class())->$method(options: $option);
   }
 }

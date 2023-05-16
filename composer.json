@@ -10,7 +10,8 @@
             "Ostyna\\Component\\Framework\\": "framework/",
             "Ostyna\\Component\\Traits\\": "traits/",
             "Ostyna\\Component\\Controllers\\": "controllers/",
-            "Ostyna\\Component\\Interface\\": "interface/"
+            "Ostyna\\Component\\Interface\\": "interface/",
+            "Ostyna\\Component\\Commands\\": "commands/"
         }
     },
     "require": {
