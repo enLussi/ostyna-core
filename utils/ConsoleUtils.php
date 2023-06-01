@@ -79,7 +79,15 @@ class ConsoleUtils {
   // * comment est un ajout d'information qui ne s'affichera pas de la même manière que le prompt
   // pour un souci de lisibilité.
   // * help est un message d'aide activé par ? 
-  public static function prompt_response(string $prompt, $callback, string $comment = "", string $help="", string $error_message = "", string $default = ""): string {
+  public static function prompt_response(
+    string $prompt, 
+    $callback, 
+    string $comment = "", 
+    string $help="", 
+    string $error_message = "", 
+    ?string $default = null,
+    $data = []
+    ): string {
 
     $processing = true;
 
@@ -92,7 +100,7 @@ class ConsoleUtils {
       $response = readline('> ');
       if($response === "?") {
         echo "\e[93m" . $help . "\e[39m" . PHP_EOL;
-      } else if(!$callback($response)){
+      } else if(!$callback($response, $data) && !is_null($response)){
         echo "\e[91m". $error_message . "\e[39m" . PHP_EOL;
         continue;
       } else {
@@ -168,15 +176,26 @@ class ConsoleUtils {
     }
   }
 
-  public static function json_in_file(string $path, string $success_message, array $content) {
+  public static function json_in_file(string $path, string $success_message, array $content, bool $erase = false, string $value = "") {
 
     if(!file_exists(CoreUtils::get_project_root().$path)) {
-      file_put_contents(CoreUtils::get_project_root().$path, $content);
-    } else {
-      $open = json_decode(file_get_contents(CoreUtils::get_project_root().$path), true);
+      $open = [];
       $open[] = $content;
       file_put_contents(CoreUtils::get_project_root().$path, json_encode($open, JSON_PRETTY_PRINT));
+    } else {
+      $open = json_decode(file_get_contents(CoreUtils::get_project_root().$path), true);
+
+      if($erase) {
+        $open = $content;
+      } else {
+        if(strlen($value) > 0) {
+          $open[$value] = $content;
+        } else {
+          $open[] = $content;
+        }
+      }
+      file_put_contents(CoreUtils::get_project_root().$path, json_encode($open, JSON_PRETTY_PRINT));
     }
-    
+    ConsoleUtils::prompt_message($success_message, 'info');
   }
 }
