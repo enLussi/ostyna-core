@@ -21,10 +21,7 @@ class ConsoleUtils {
       }
     }
 
-    self::$commands = [
-      ...self::$commands,
-      $command
-    ];
+    self::$commands[] = $command;
   }
 
   public static function interprete(string $name, array $options) {
@@ -34,7 +31,7 @@ class ConsoleUtils {
       echo 'Commande invalide.';
       return;
     } 
-      
+
     if(self::options_exists($name, $options) === false){
       echo 'Option invalide.';
       return;
@@ -61,7 +58,7 @@ class ConsoleUtils {
 
   public static function options_exists(string $name, array $options): bool {
     foreach($options as $option) {
-      if(!in_array($option, self::get_command($name)['option'] )) 
+      if(!in_array(explode('=', $option)[0], self::get_command($name)['option'] )) 
         return false;
     }
     return true;

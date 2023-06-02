@@ -80,4 +80,20 @@ class CoreUtils {
     return substr(bin2hex($bytes), 0, $length);
   }
 
+  public static function get_classes_in_namespace(string $namespace): array {
+
+    $classes = [];
+    $namespace = trim($namespace, '\\');
+    $namespace = rtrim($namespace, '\\') . '\\';
+
+    var_dump($namespace);
+
+    foreach(get_declared_classes() as $class) {
+      if(strpos($class, $namespace) === 0) {
+        $classes[] = $class;
+      }
+    }
+    return $classes;
+  }
+
 }
