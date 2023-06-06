@@ -11,14 +11,14 @@ class CoreUtils {
   private static array $config;
   private static Exception $exception;
 
-  public static function get_config() {
+  public static function get_config(string $key = "") {
     if(!isset(self::$config)) {
       if(!file_exists(self::get_project_root() . '/config/config.json')) {
         throw new Exception('File config/config.json missing.');
       }
       self::$config = json_decode(file_get_contents(self::get_project_root() . '/config/config.json'), true);
     }
-    return self::$config;
+    return (strlen($key) > 0 && isset(self::$config[$key])) ? self::$config[$key] : self::$config;
   }
 
   public static function get_project_root () {
@@ -33,6 +33,10 @@ class CoreUtils {
     return self::$projectRoot;
   }
 
+  public static function get_template_folder () {
+    return self::get_project_root(). "/" . self::get_config('templates');
+  }
+
   public static function redirect(?string $key) {
 
     $route = RoutesUtils::route_exists(key_route: $key);
@@ -42,7 +46,19 @@ class CoreUtils {
     }
 
     [$class, $method] = explode('::', $route['method']);
-    (new $class())->$method();
+
+    // Second event : Avant l'appel du controlleur
+    // core.controller avec les infos $class $method et $route
+    // qui pourront être vu sur une page d'erreur pour le déboggage
+
+    if(!class_exists($class) || !method_exists($class, $method)) {
+      throw new FatalException("Appel d'une méthode inconnu : $class::$method", 0);
+    } 
+    $response = (new $class())->$method();
+
+    // Fifth event : Avant l'envoi de la page à la vue
+    // core.response avec le retour de la méthode du controlleur
+    return $response;
   }
 
   public static function set_error(Exception $exception) {

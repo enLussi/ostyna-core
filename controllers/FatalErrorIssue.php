@@ -2,25 +2,25 @@
 
 namespace Ostyna\Component\Controllers;
 
-use Ostyna\Component\Error\FatalException;
 use Ostyna\Component\Utils\CoreUtils;
 
 class FatalErrorIssue extends ErrorIssue {
 
   public function display() {
-    if(CoreUtils::get_error() !== false) {
+    $error = CoreUtils::get_error();
+
+    if($error !== false) {
 
       if(!isset(CoreUtils::get_config()['error_template'])) {
-        $this->flat_render(CoreUtils::get_error()->getMessage());
-
-        return $this->send_view();
+        $this->flat_render($error->getMessage());
       } 
 
-      $this->render(CoreUtils::get_config()['error_template'] . '/fatal_error.html', [
-        'error' => CoreUtils::get_error()->getMessage()
+      return $this->render(CoreUtils::get_config('error_template').'/fatal_error.html', [
+        'error' => $error,
       ]);
 
+    } else {
+      return $this->flat_render('Un problème est survenu');
     }
-    $this->flat_render('Un problème est survenu');
   }
 }

@@ -35,9 +35,13 @@ class BaseCore {
 
   public function load(){
 
-    
     $this->origin = explode('?', $_SERVER['REQUEST_URI'])[0]; 
+    // First Event : Before all load action
+    // core.call
+    
     RoutesUtils::load_routes();
+
+    $content = "<pre>No content</pre>";
 
     try {
       if (RoutesUtils::route_exists($this->origin) !== false) {
@@ -50,9 +54,10 @@ class BaseCore {
         }
 
         if($key !== false) {
-          CoreUtils::redirect($key);
-        }
-        throw new Exception('Routes does not exists for some reason.');
+          $content = CoreUtils::redirect($key);
+        } else {
+          throw new Exception('Routes does not exists for some reason.');
+        } 
       } else {
 
         // $this->notfound_redirect();
@@ -60,8 +65,12 @@ class BaseCore {
       }
     } catch (Exception $exception) {
       CoreUtils::set_error($exception);
-      CoreUtils::redirect('fatalerror');
+      $content = CoreUtils::redirect('fatalerror');
     }
+
+    // Sixth event : dernier evenement avant la création de la page
+    // core.finish
+    echo $content;
 
   }
 

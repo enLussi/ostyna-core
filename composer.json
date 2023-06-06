@@ -15,6 +15,7 @@
         }
     },
     "require": {
-        "ostyna/core": "*"
+        "ostyna/core": "*",
+        "ostyna/sing" : "*"
     }
 }
