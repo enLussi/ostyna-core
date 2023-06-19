@@ -58,6 +58,7 @@ class CoreUtils {
 
     // Fifth event : Avant l'envoi de la page à la vue
     // core.response avec le retour de la méthode du controlleur
+
     return $response;
   }
 
@@ -72,8 +73,8 @@ class CoreUtils {
     return self::$exception;
   }
 
-  public static function get_env() {
-    return $_ENV;
+  public static function get_env(string $key = "") {
+    return (strlen($key) > 0 && isset($_ENV[$key])) ? $_ENV[$key] : $_ENV;
   }
 
   public static function get_request() {

@@ -2,8 +2,9 @@
 
 namespace Ostyna\Component\Event;
 
+use Ostyna\Component\Interface\EventDispatcherInterface;
 
-class EventDispatcher 
+class EventDispatcher implements EventDispatcherInterface
 {
 
   public $listeners = [];

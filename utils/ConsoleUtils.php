@@ -158,6 +158,9 @@ class ConsoleUtils {
   }
 
   public static function write_in_file(string $path, string $success_message, string $content, string $options = 'a') {
+    if(!file_exists(CoreUtils::get_project_root().$path)){
+      
+    }
     if($open = fopen(CoreUtils::get_project_root().$path, $options)) {
       if(fwrite($open, $content) === false) {
         ConsoleUtils::prompt_message("Impossible d'écrire dans le fichier", 'danger');
