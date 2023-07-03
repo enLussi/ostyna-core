@@ -26,7 +26,12 @@ trait PageTrait {
 
     // $this->content = file_get_contents(CoreUtils::get_project_root() . '/templates/' . $pathView);
     // compiler le contenu de la page avec le moteur de template sing
-    $this->content = TemplateUtils::sing(CoreUtils::get_project_root() . '/templates/' . $pathView, $parameters);
+    if(class_exists('Ostyna\Sing\Utils\TemplateUtils')) {
+      $this->content = TemplateUtils::sing(CoreUtils::get_project_root() . '/templates/' . $pathView, $parameters);
+    } else {
+      $this->content = "html";
+    }
+
 
     $this->send_view();
   }

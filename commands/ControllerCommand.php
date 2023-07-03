@@ -45,6 +45,13 @@ class ControllerCommand extends AbstractCommand
     ConsoleUtils::write_in_file("/src/controllers/$class_name.php", "Created Reference: $class_name;php", $file, 'w+');
     ConsoleUtils::write_in_file("/templates/web/index_$class.html", "Created Reference: $class.html", $template, 'w+');
 
+    $open = json_decode(file_get_contents(CoreUtils::get_project_root()."/config/routes.json"), true);
+    $open[$class] = [
+      'path' => "/$class",
+      'methods' => "App\\Controllers\\$class_name::display"
+    ];
+    file_put_contents(CoreUtils::get_project_root()."/config/routes.json", json_encode($open, JSON_PRETTY_PRINT));
+
     return true;
   }
 }
