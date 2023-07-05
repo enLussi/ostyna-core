@@ -2,7 +2,7 @@
 
 namespace Ostyna\Component\Interface;
 
-
-interface FormElementsInterface
+interface FormProcessConstraintInterface 
 {
+  
 }

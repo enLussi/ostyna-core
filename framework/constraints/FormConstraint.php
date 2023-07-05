@@ -6,16 +6,10 @@ namespace Ostyna\Component\Framework\Constraints;
 class FormConstraint 
 {
 
-  public function __construct(protected string|int $value)
+  protected string $message = "";
+
+  public function __construct()
   {
     
-  }
-
-  /**
-   * Get the value of value
-   */ 
-  public function getValue()
-  {
-    return $this->value;
   }
 }

@@ -4,14 +4,18 @@ namespace Ostyna\Component\Framework\Constraints;
 
 use Ostyna\Component\Interface\FormConstraintInterface;
 
-class Length extends FormConstraint implements FormConstraintInterface
+class Length extends FormConstraint
 {
-  public function __construct(int $value)
-  {
-    parent::__construct($value);
-  }
+  public $min;
+  public $max;
+  public $size;
 
-  public function build(): string {
-    return "size=\"$this->value\"";
+  public function __construct(int $size = null, int $min = null, int $max = null)
+  {
+    $this->min = $min;
+    $this->max = $max;
+    $this->size = $size;
+
+    parent::__construct();
   }
 }

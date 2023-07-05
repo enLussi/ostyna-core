@@ -14,51 +14,61 @@ abstract class FormElement
   protected bool $readonly = false;
   protected string $maxLength;
   protected string $min;
+  protected string $minlength;
   protected string $max;
+  protected string $maxlength;
   protected string $step;
   protected bool $multiple;
   protected bool $checked;
   protected string $HTMLclass = "";
   protected string $HTMLid = "";
-  // private ?FormLabel $label;
+  protected ?Label $label;
 
-  protected array $allowed_constraints = [];
+  protected string $message = "Not Valid";
+
+  // protected array $allowed_constraints = [];
   protected array $allowed_attribtutes = [
-    'name', 'class', 'id', 'placeholder', 'value', 'disabled', 'hidden'
+    'name', 'class', 'id', 'placeholder', 'value', 'disabled', 'hidden', 'required'
   ];
   protected string $tag;
   protected bool $autoclose;
 
-  public function __construct(protected string $name, protected string|int $value, protected ?Label $label, protected array $constraints = [], protected array $attributes = [])
+  public function __construct(protected string $name, protected string|int $value, protected array $attributes = [])
   {
     $attributes['name'] = $name;
-    // dd($this->allowed_attribtutes);
-    $this->verify_constraints($constraints);
+    if(!isset( $attributes['required'])) {
+      $attributes['required'] = "true";
+    }
+    if($attributes['required'] === "false") {
+      unset($attributes['required']);
+    }
+    
+
     $this->attributes = $this->verify_attributes($attributes);
 
-    if(isset($name) && strlen($name) > 0) {
-      $label->setFor($this->name);
+    if(isset($name) && strlen($name) > 0 && isset($this->label)) {
+      $this->label->setFor($this->name);
     }
     $this->HTMLid = isset($attributes['id']) ? $attributes['id'] : "";
     $this->HTMLclass = isset($attributes['class']) ? $attributes['class'] : "";
   }
 
-  protected function verify_constraints(array $constraints)
-  {
-    foreach($constraints as $constraint) {
-      $verified = false;
+  // protected function verify_constraints(array $constraints)
+  // {
+  //   foreach($constraints as $constraint) {
+  //     $verified = false;
 
-      foreach($this->allowed_constraints as $allowed) {
-        if($constraint instanceof $allowed) {
-          $verified = true;
-        }
-      }
+  //     foreach($this->allowed_constraints as $allowed) {
+  //       if($constraint instanceof $allowed) {
+  //         $verified = true;
+  //       }
+  //     }
 
-      if($verified === false) {
-        return false;
-      }
-    }
-  }
+  //     if($verified === false) {
+  //       return false;
+  //     }
+  //   }
+  // }
 
   protected function verify_attributes(array $attributes ): array {
     foreach($attributes as $key => $attribute) {
@@ -79,7 +89,7 @@ abstract class FormElement
       $content .= $this->build_attributes($attr, $value);
     }
 
-    $content .= $this->build_constraints();
+    // $content .= $this->build_constraints();
 
     $content .= ">";
     if($this->autoclose === false) {
@@ -100,21 +110,25 @@ abstract class FormElement
   }
 
   protected function build_attributes(string $attr, mixed $value): string {
-    if(strlen($value > 0)) {
+    if(is_array($value)) {
+      $this->message = isset($value['message']) ? $value['message'] : $this->message;
+      return "$attr=\"$value[value]\"";
+    }
+    elseif(is_string($value) && strlen($value > 0)) {
       return "$attr=\"$value\" ";
     }
     return "";
   }
 
-  protected function build_constraints(): string
-  {
-    $content = "";
-    foreach($this->constraints as $constraint) {
+  // protected function build_constraints(): string
+  // {
+  //   $content = "";
+  //   foreach($this->constraints as $constraint) {
       
-      $content = $constraint->build()." ";
-    }
-    return $content;
-  }
+  //     $content = $constraint->build()." ";
+  //   }
+  //   return $content;
+  // }
 
   protected function setTag(string $tag, bool $autoclose = true) {
     $this->tag = $tag;
