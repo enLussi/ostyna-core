@@ -14,7 +14,7 @@ class BaseCore {
   private string $origin;
 
   private function __construct() {
-    (new Dotenv(CoreUtils::get_project_root() . '/.env'))->load();
+    (new Dotenv(CoreUtils::get_project_root() . '/.env.local'))->load();
   }
 
   private function __clone(){}

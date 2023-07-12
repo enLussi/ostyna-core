@@ -37,7 +37,7 @@ class CoreUtils {
     return self::get_project_root(). "/" . self::get_config('templates');
   }
 
-  public static function redirect(?string $key) {
+  public static function redirect(?string $key, bool $header = false) {
 
     $route = RoutesUtils::route_exists(key_route: $key);
 
@@ -58,7 +58,11 @@ class CoreUtils {
 
     // Fifth event : Avant l'envoi de la page à la vue
     // core.response avec le retour de la méthode du controlleur
-
+    if($header) {
+      header('Location: '.$route['path'], true, 301);
+      exit();
+    }
+    
     return $response;
   }
 

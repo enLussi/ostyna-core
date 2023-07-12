@@ -15,19 +15,12 @@ class Textarea extends FormElement implements FormElementsInterface
   {
     array_push($this->allowed_attribtutes, 'cols', 'rows');
     $this->setTag('textarea', false);
+    $this->label = $label;
 
-    parent::__construct($name, $value, $label, $constraints, $attributes);
+    parent::__construct($name, $value, $attributes);
     
     $this->cols = isset($attributes['cols']) ? $attributes['cols'] : "";
     $this->rows = isset($attributes['rows']) ? $attributes['rows'] : "";
   }
-
-  public function allow_constraints(array $contraints)
-  {
-    $this->allowed_constraints = [
-      Length::class
-    ];
-  }
-
 
 }

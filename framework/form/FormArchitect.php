@@ -10,7 +10,7 @@ class FormArchitect implements FormArchitectInterface
 
    private array $elements = [];
 
-   public function __construct(private string $action = "", private string $method = 'POST')
+   public function __construct(private string $action = "", private string $method = 'POST', private string $id = "")
    {
    }
 
@@ -47,7 +47,7 @@ class FormArchitect implements FormArchitectInterface
    }
 
    public function build(): string {
-      $content = "<form action=\"$this->action\" method=\"$this->method\">";
+      $content = "<form id=\"$this->id\" action=\"$this->action\" method=\"$this->method\">";
       foreach($this->elements as $element) {
          $content .= $element->build();
       }

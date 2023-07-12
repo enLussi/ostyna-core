@@ -11,8 +11,8 @@ class Select extends FormElement implements FormElementsInterface
     $this->setTag('select', false);
 
     $value = $this->build_options();
-
-    parent::__construct($name, $value, $label, $constraints, $attributes);
+    $this->label = $label;
+    parent::__construct($name, $value, $attributes);
   }
 
   private function build_options(): string {
@@ -25,11 +25,5 @@ class Select extends FormElement implements FormElementsInterface
     }
 
     return $content;
-  }
-
-  public function allow_constraints(array $contraints)
-  {
-    $this->allowed_constraints = [
-    ];
   }
 }

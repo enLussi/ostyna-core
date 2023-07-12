@@ -39,7 +39,10 @@ class ControllerCommand extends AbstractCommand
     $class = strtolower($class);
     $class_name = ucfirst($class)."Controller";
 
-    $file = $this->generate_by_skeleton('controller.skl.php', ['class' => $class_name]);
+    $file = $this->generate_by_skeleton('controller.skl.php', [
+      'class' => $class_name,
+      'name' => $class
+    ]);
     $template = $this->generate_by_skeleton('template.skl.php');
 
     ConsoleUtils::write_in_file("/src/controllers/$class_name.php", "Created Reference: $class_name;php", $file, 'w+');

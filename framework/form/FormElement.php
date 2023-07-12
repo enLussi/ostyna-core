@@ -36,6 +36,7 @@ abstract class FormElement
   public function __construct(protected string $name, protected string|int $value, protected array $attributes = [])
   {
     $attributes['name'] = $name;
+    $attributes['id'] = $name;
     if(!isset( $attributes['required'])) {
       $attributes['required'] = "true";
     }
